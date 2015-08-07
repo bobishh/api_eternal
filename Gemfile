@@ -5,6 +5,9 @@ gem 'rails', '4.2.3'
 
 gem 'rails-api'
 
+#auth
+gem 'sorcery'
+
 group :test do
   gem 'guard'
   gem 'guard-minitest'
