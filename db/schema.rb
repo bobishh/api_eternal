@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807201845) do
+ActiveRecord::Schema.define(version: 20150808111821) do
+
+  create_table "api_keys", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "expires_at"
+    t.string   "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.text     "content"
@@ -31,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150807201845) do
     t.string   "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

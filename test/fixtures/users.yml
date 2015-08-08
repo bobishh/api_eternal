@@ -6,12 +6,14 @@
 #
 one:
   email: strinaag@string.test
-  crypted_password: stasd081l124$kasdlkasdlringaa
-  salt: supersalt1
+  crypted_password: "e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc"
+  salt: "81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9"
+  name: bob1
 # column: value
 #
 two:
   email: string@string.test§
-  crypted_password: stasd081l124$kasdlkasdlring
-  salt: supersalt
+  crypted_password: "e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc"
+  salt: "81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9"
+  name: bob2
 #  column: value

@@ -3,8 +3,18 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:one)
+    @token = api_keys(:one).token
+    @request.headers["HTTP_AUTHORIZATION"] = "Token token=#@token"
   end
 
+  #unauthenticated
+  test "requests authorization" do
+    @request.headers["HTTP_AUTHORIZATION"] = nil 
+    get :index
+    assert_response 401
+  end
+
+  #authenticated
   test "should get index" do
     get :index
     assert_response :success
@@ -13,7 +23,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: { email: "test@test.test" }
+      post :create, user: { email: "test@test.test", name: "BOB", password: "super" }
     end
 
     assert_response 201
@@ -25,7 +35,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    put :update, id: @user, user: {  }
+    put :update, id: @user, user: {  name: "NOT BOB" }
     assert_response 204
   end
 

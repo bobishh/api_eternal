@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :restrict_access
 
   # GET /users
   # GET /users.json
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    @user = UserForm.new(User.new, user_params).user
 
     if @user.save
       render json: @user, status: :created, location: @user
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    @user = UserForm.new(User.find(params[:id]), user_params).user
 
     if @user.update(user_params)
       head :no_content
@@ -54,6 +55,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params[:user].permit(:email)
+      params[:user].permit(:email, :name, :password)
     end
 end
