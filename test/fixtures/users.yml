@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  email: strinaag@string.test
+  crypted_password: "e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc"
+  salt: "81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9"
+  name: bob1
+# column: value
+#
+two:
+  email: string@string.test§
+  crypted_password: "e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc"
+  salt: "81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9"
+  name: bob2
+#  column: value
