@@ -1,0 +1,798 @@
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.6ms)[0m  [1mDELETE FROM "api_keys"[0m
+  [1m[35mFixture Insert (0.5ms)[0m  INSERT INTO "api_keys" ("user_id", "expires_at", "token", "created_at", "updated_at", "id") VALUES (1, '2020-08-08 11:51:18.000000', 'alsdkalksdjl1kj2391023la', '2015-08-08 22:32:14', '2015-08-08 22:32:14', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "api_keys" ("user_id", "expires_at", "token", "created_at", "updated_at", "id") VALUES (1, '2020-08-08 11:51:18.000000', 'ghjkhbakuygudfqywe8r1yg2ehw', '2015-08-08 22:32:14', '2015-08-08 22:32:14', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "posts"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("content", "user_id", "created_at", "updated_at", "id") VALUES ('MyText', 1, '2015-08-08 22:32:14', '2015-08-08 22:32:14', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "posts" ("content", "user_id", "created_at", "updated_at", "id") VALUES ('MyText', 1, '2015-08-08 22:32:14', '2015-08-08 22:32:14', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("email", "crypted_password", "salt", "name", "created_at", "updated_at", "id") VALUES ('strinaag@string.test', 'e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc', '81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9', 'bob1', '2015-08-08 22:32:14', '2015-08-08 22:32:14', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "crypted_password", "salt", "name", "created_at", "updated_at", "id") VALUES ('string@string.test§', 'e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc', '81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9', 'bob2', '2015-08-08 22:32:14', '2015-08-08 22:32:14', 298486374)[0m
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------
+ApiKeyTest: test_sets_token_before_create
+-----------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mApiKey Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "05339d0a83adb6c97131aa324dede2d2"]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "api_keys" ("user_id", "created_at", "updated_at", "token", "expires_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["created_at", "2015-08-08 22:32:14.418832"], ["updated_at", "2015-08-08 22:32:14.418832"], ["token", "05339d0a83adb6c97131aa324dede2d2"], ["expires_at", "2015-08-22 22:32:14.444405"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------
+ApiKeyTest: test_belongs_to_a_user
+----------------------------------
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------
+ApiKeyTest: test_has_a_fresh_scope
+----------------------------------
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------
+ApiKeyTest: test_sets_expires_at_before_create
+----------------------------------------------
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "40e3ed757cad2a7bf9eb03f49b5aae6c"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "api_keys" ("user_id", "created_at", "updated_at", "token", "expires_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["created_at", "2015-08-08 22:32:14.451004"], ["updated_at", "2015-08-08 22:32:14.451004"], ["token", "40e3ed757cad2a7bf9eb03f49b5aae6c"], ["expires_at", "2015-08-22 22:32:14.451832"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+---------------------------------------------------------------
+PostsControllerTest: test_should_update_post_when_authenticated
+---------------------------------------------------------------
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.1ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#update as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}, "id"=>"980190962"}
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.506327') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 8ms (ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+---------------------------------------------------------------
+PostsControllerTest: test_should_create_post_when_authenticated
+---------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+Processing by PostsController#create as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}}
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.514184') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("content", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["content", "MyText"], ["user_id", 1], ["created_at", "2015-08-08 22:32:14.515556"], ["updated_at", "2015-08-08 22:32:14.515556"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 4ms (Views: 0.9ms | ActiveRecord: 0.5ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+----------------------------------------------------------------
+PostsControllerTest: test_should_destroy_post_when_authenticated
+----------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+Processing by PostsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.522428') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "posts" WHERE "posts"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 2ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------------------
+PostsControllerTest: test_should_show_post
+------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------------------------
+PostsControllerTest: test_should_not_update_post_when_unauth
+------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#update as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}, "id"=>"980190962"}
+  [1m[36mPost Load (0.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 7ms (Views: 6.5ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------------------
+PostsControllerTest: test_should_get_index
+------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+------------------------------------------------------------
+PostsControllerTest: test_should_not_create_post_when_unauth
+------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#create as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}}
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-------------------------------------------------------------
+PostsControllerTest: test_should_not_destroy_post_when_unauth
+-------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mPost Load (0.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------------------------------------------------
+SessionsControllerTest: test_should_update/create_token_if_user_presents
+------------------------------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by SessionsController#create as HTML
+  Parameters: {"session"=>{"email"=>"strinaag@string.test", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1[0m  [["email", "strinaag@string.test"]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = ? LIMIT 1  [["user_id", 980190962]]
+  [1m[36mApiKey Exists (0.0ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "de6457ce001542d6f5b9b9b478ff77e6"]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "api_keys" ("user_id", "token", "expires_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 980190962], ["token", "de6457ce001542d6f5b9b9b478ff77e6"], ["expires_at", "2015-08-22 22:32:14.573820"], ["created_at", "2015-08-08 22:32:14.573650"], ["updated_at", "2015-08-08 22:32:14.573650"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+------------------------------------------
+UsersControllerTest: test_should_get_index
+------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#index as HTML
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.581955') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users"
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------
+UsersControllerTest: test_should_show_user
+------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.587266') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+--------------------------------------------
+UsersControllerTest: test_should_update_user
+--------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"name"=>"NOT BOB"}, "id"=>"980190962"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.592339') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "users" SET "salt" = ?, "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["salt", "a87c41197386c5264889cd0e5d3a9a3ea3d8b85227a7891756fa222600c5f3a0"], ["name", "NOT BOB"], ["updated_at", "2015-08-08 22:32:14.595790"], ["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 7ms (ActiveRecord: 0.6ms)
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+------------------------------------------------
+UsersControllerTest: test_requests_authorization
+------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#index as HTML
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+--------------------------------------------
+UsersControllerTest: test_should_create_user
+--------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.test", "name"=>"BOB", "password"=>"[FILTERED]"}}
+  [1m[35mApiKey Exists (0.3ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.608323') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("crypted_password", "salt", "name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["crypted_password", "a8e3e9b9c77a9f3d3db8a16887d71a7403d9077e54b5936f54bccc4976a4098f"], ["salt", "52579f5dd420f7ab7590d737a27881b48f7853f8444dd3f5a5af9825b0ce7fc3"], ["name", "BOB"], ["email", "test@test.test"], ["created_at", "2015-08-08 22:32:14.611814"], ["updated_at", "2015-08-08 22:32:14.611814"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 7ms (Views: 0.8ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36m (0.5ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+UsersControllerTest: test_should_destroy_user
+---------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+Processing by UsersController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 22:32:14.620139') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 2ms (ActiveRecord: 0.5ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------
+UserTest: test_has_many_posts
+-----------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------
+UserTest: test_has_one_api_key
+------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+--------------------------------
+PostTest: test_belongs_to_a_user
+--------------------------------
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "api_keys"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "api_keys" ("user_id", "expires_at", "token", "created_at", "updated_at", "id") VALUES (1, '2020-08-08 11:51:18.000000', 'alsdkalksdjl1kj2391023la', '2015-08-08 23:02:09', '2015-08-08 23:02:09', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "api_keys" ("user_id", "expires_at", "token", "created_at", "updated_at", "id") VALUES (1, '2020-08-08 11:51:18.000000', 'ghjkhbakuygudfqywe8r1yg2ehw', '2015-08-08 23:02:09', '2015-08-08 23:02:09', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "posts"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("content", "user_id", "created_at", "updated_at", "id") VALUES ('MyText', 1, '2015-08-08 23:02:09', '2015-08-08 23:02:09', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "posts" ("content", "user_id", "created_at", "updated_at", "id") VALUES ('MyText', 1, '2015-08-08 23:02:09', '2015-08-08 23:02:09', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("email", "crypted_password", "salt", "name", "created_at", "updated_at", "id") VALUES ('strinaag@string.test', 'e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc', '81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9', 'bob1', '2015-08-08 23:02:09', '2015-08-08 23:02:09', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "crypted_password", "salt", "name", "created_at", "updated_at", "id") VALUES ('string@string.test§', 'e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc', '81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9', 'bob2', '2015-08-08 23:02:09', '2015-08-08 23:02:09', 298486374)[0m
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------
+UserTest: test_has_one_api_key
+------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------
+UserTest: test_has_many_posts
+-----------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------
+ApiKeyTest: test_sets_token_before_create
+-----------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mApiKey Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "f627cadbf9847bd0cf68be3becf1f402"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "api_keys" ("user_id", "created_at", "updated_at", "token", "expires_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["created_at", "2015-08-08 23:02:09.299524"], ["updated_at", "2015-08-08 23:02:09.299524"], ["token", "f627cadbf9847bd0cf68be3becf1f402"], ["expires_at", "2015-08-22 23:02:09.315265"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------
+ApiKeyTest: test_has_a_fresh_scope
+----------------------------------
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------------------
+ApiKeyTest: test_sets_expires_at_before_create
+----------------------------------------------
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "b4e72f2e958717086f956e139d4072b7"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "api_keys" ("user_id", "created_at", "updated_at", "token", "expires_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["created_at", "2015-08-08 23:02:09.319309"], ["updated_at", "2015-08-08 23:02:09.319309"], ["token", "b4e72f2e958717086f956e139d4072b7"], ["expires_at", "2015-08-22 23:02:09.320253"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------
+ApiKeyTest: test_belongs_to_a_user
+----------------------------------
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+------------------------------------------------------------------------
+SessionsControllerTest: test_should_update/create_token_if_user_presents
+------------------------------------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by SessionsController#create as HTML
+  Parameters: {"session"=>{"email"=>"strinaag@string.test", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1[0m  [["email", "strinaag@string.test"]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = ? LIMIT 1  [["user_id", 980190962]]
+  [1m[36mApiKey Exists (0.0ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "fa12ad4902f64291f8c17476ad7493e3"]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "api_keys" ("user_id", "token", "expires_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 980190962], ["token", "fa12ad4902f64291f8c17476ad7493e3"], ["expires_at", "2015-08-22 23:02:09.377045"], ["created_at", "2015-08-08 23:02:09.376894"], ["updated_at", "2015-08-08 23:02:09.376894"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+--------------------------------
+PostTest: test_belongs_to_a_user
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------------------------
+PostsControllerTest: test_should_not_create_post_when_unauth
+------------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#create as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}}
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 7ms (Views: 6.3ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+----------------------------------------------------------------
+PostsControllerTest: test_should_destroy_post_when_authenticated
+----------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+Processing by PostsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.400336') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "posts" WHERE "posts"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 3ms (ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+---------------------------------------------------------------
+PostsControllerTest: test_should_update_post_when_authenticated
+---------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#update as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}, "id"=>"980190962"}
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.406743') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 2ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------------------
+PostsControllerTest: test_should_not_destroy_post_when_unauth
+-------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mPost Load (0.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------------------
+PostsControllerTest: test_should_get_index
+------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.1ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts"
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------------------------
+PostsControllerTest: test_should_not_update_post_when_unauth
+------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#update as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}, "id"=>"980190962"}
+  [1m[36mPost Load (0.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+---------------------------------------------------------------
+PostsControllerTest: test_should_create_post_when_authenticated
+---------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"
+Processing by PostsController#create as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}}
+  [1m[36mApiKey Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.427514') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "posts" ("content", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["content", "MyText"], ["user_id", 1], ["created_at", "2015-08-08 23:02:09.431518"], ["updated_at", "2015-08-08 23:02:09.431518"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 201 Created in 9ms (Views: 0.8ms | ActiveRecord: 1.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+------------------------------------------
+PostsControllerTest: test_should_show_post
+------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------
+UsersControllerTest: test_should_get_index
+------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#index as HTML
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.447624') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users"
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+--------------------------------------------
+UsersControllerTest: test_should_create_user
+--------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.test", "name"=>"BOB", "password"=>"[FILTERED]"}}
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.454061') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("crypted_password", "salt", "name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["crypted_password", "a8e3e9b9c77a9f3d3db8a16887d71a7403d9077e54b5936f54bccc4976a4098f"], ["salt", "52579f5dd420f7ab7590d737a27881b48f7853f8444dd3f5a5af9825b0ce7fc3"], ["name", "BOB"], ["email", "test@test.test"], ["created_at", "2015-08-08 23:02:09.457502"], ["updated_at", "2015-08-08 23:02:09.457502"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 7ms (Views: 0.8ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------------
+UsersControllerTest: test_requests_authorization
+------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#index as HTML
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+--------------------------------------------
+UsersControllerTest: test_should_update_user
+--------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"name"=>"NOT BOB"}, "id"=>"980190962"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.472387') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "users" SET "salt" = ?, "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["salt", "a87c41197386c5264889cd0e5d3a9a3ea3d8b85227a7891756fa222600c5f3a0"], ["name", "NOT BOB"], ["updated_at", "2015-08-08 23:02:09.474057"], ["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 5ms (ActiveRecord: 0.6ms)
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------
+UsersControllerTest: test_should_show_user
+------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.2ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.485293') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+Completed 200 OK in 4ms (Views: 1.0ms | ActiveRecord: 0.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+UsersControllerTest: test_should_destroy_user
+---------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+Processing by UsersController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-08 23:02:09.492172') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 2ms (ActiveRecord: 0.5ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "api_keys"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "api_keys" ("user_id", "expires_at", "token", "created_at", "updated_at", "id") VALUES (1, '2020-08-08 11:51:18.000000', 'alsdkalksdjl1kj2391023la', '2015-08-10 20:07:50', '2015-08-10 20:07:50', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "api_keys" ("user_id", "expires_at", "token", "created_at", "updated_at", "id") VALUES (1, '2020-08-08 11:51:18.000000', 'ghjkhbakuygudfqywe8r1yg2ehw', '2015-08-10 20:07:50', '2015-08-10 20:07:50', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "posts"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("content", "user_id", "created_at", "updated_at", "id") VALUES ('MyText', 1, '2015-08-10 20:07:50', '2015-08-10 20:07:50', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "posts" ("content", "user_id", "created_at", "updated_at", "id") VALUES ('MyText', 1, '2015-08-10 20:07:50', '2015-08-10 20:07:50', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("email", "crypted_password", "salt", "name", "created_at", "updated_at", "id") VALUES ('strinaag@string.test', 'e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc', '81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9', 'bob1', '2015-08-10 20:07:50', '2015-08-10 20:07:50', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "crypted_password", "salt", "name", "created_at", "updated_at", "id") VALUES ('string@string.test§', 'e8ff342f24695e7815be89a7c513dd1f1da3192ca131ad80d09a51bae1703ebc', '81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9', 'bob2', '2015-08-10 20:07:50', '2015-08-10 20:07:50', 298486374)[0m
+  [1m[35m (0.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+------------------------------------------------
+UsersControllerTest: test_requests_authorization
+------------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.1ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by UsersController#index as HTML
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 7ms (Views: 7.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+------------------------------------------
+UsersControllerTest: test_should_get_index
+------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by UsersController#index as HTML
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:50.949930') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users"[0m
+Completed 200 OK in 12ms (Views: 1.2ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+---------------------------------------------
+UsersControllerTest: test_should_destroy_user
+---------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "users"
+Processing by UsersController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:50.966965') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 980190962]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 4ms (ActiveRecord: 0.5ms)
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36m (0.8ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+--------------------------------------------
+UsersControllerTest: test_should_create_user
+--------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.test", "name"=>"BOB", "password"=>"[FILTERED]"}}
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:50.973578') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("crypted_password", "salt", "name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["crypted_password", "a8e3e9b9c77a9f3d3db8a16887d71a7403d9077e54b5936f54bccc4976a4098f"], ["salt", "52579f5dd420f7ab7590d737a27881b48f7853f8444dd3f5a5af9825b0ce7fc3"], ["name", "BOB"], ["email", "test@test.test"], ["created_at", "2015-08-10 20:07:50.978923"], ["updated_at", "2015-08-10 20:07:50.978923"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 9ms (Views: 0.8ms | ActiveRecord: 0.5ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------
+UsersControllerTest: test_should_show_user
+------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:50.987949') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+--------------------------------------------
+UsersControllerTest: test_should_update_user
+--------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.1ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"name"=>"NOT BOB"}, "id"=>"980190962"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:50.994466') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "users" SET "salt" = ?, "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["salt", "a87c41197386c5264889cd0e5d3a9a3ea3d8b85227a7891756fa222600c5f3a0"], ["name", "NOT BOB"], ["updated_at", "2015-08-10 20:07:50.995934"], ["id", 980190962]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 5ms (ActiveRecord: 0.7ms)
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+--------------------------------
+PostTest: test_belongs_to_a_user
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+------------------------------------------------------------------------
+SessionsControllerTest: test_should_update/create_token_if_user_presents
+------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by SessionsController#create as HTML
+  Parameters: {"session"=>{"email"=>"strinaag@string.test", "password"=>"[FILTERED]"}}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1  [["email", "strinaag@string.test"]]
+  [1m[36mApiKey Load (0.2ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = ? LIMIT 1[0m  [["user_id", 980190962]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1  [["token", "f9ec55c64eb22c696e167e613747e473"]]
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "api_keys" ("user_id", "token", "expires_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 980190962], ["token", "f9ec55c64eb22c696e167e613747e473"], ["expires_at", "2015-08-24 20:07:51.022308"], ["created_at", "2015-08-10 20:07:51.022105"], ["updated_at", "2015-08-10 20:07:51.022105"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 15ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------
+UserTest: test_has_many_posts
+-----------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------
+UserTest: test_has_one_api_key
+------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------
+ApiKeyTest: test_belongs_to_a_user
+----------------------------------
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------
+ApiKeyTest: test_sets_expires_at_before_create
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "b254e42145d87dabeb13c20da365af58"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "api_keys" ("user_id", "created_at", "updated_at", "token", "expires_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["created_at", "2015-08-10 20:07:51.030853"], ["updated_at", "2015-08-10 20:07:51.030853"], ["token", "b254e42145d87dabeb13c20da365af58"], ["expires_at", "2015-08-24 20:07:51.032249"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------
+ApiKeyTest: test_has_a_fresh_scope
+----------------------------------
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------
+ApiKeyTest: test_sets_token_before_create
+-----------------------------------------
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE "api_keys"."token" = ? LIMIT 1[0m  [["token", "d195c68d4435305793e995669de52ad9"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "api_keys" ("user_id", "created_at", "updated_at", "token", "expires_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["created_at", "2015-08-10 20:07:51.036096"], ["updated_at", "2015-08-10 20:07:51.036096"], ["token", "d195c68d4435305793e995669de52ad9"], ["expires_at", "2015-08-24 20:07:51.036800"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------------------------------------
+PostsControllerTest: test_should_not_update_post_when_unauth
+------------------------------------------------------------
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.1ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#update as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}, "id"=>"980190962"}
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 2ms (Views: 0.5ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+------------------------------------------
+PostsControllerTest: test_should_show_post
+------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mPost Load (0.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+---------------------------------------------------------------
+PostsControllerTest: test_should_create_post_when_authenticated
+---------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"
+Processing by PostsController#create as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}}
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:51.053332') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("content", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["content", "MyText"], ["user_id", 1], ["created_at", "2015-08-10 20:07:51.054506"], ["updated_at", "2015-08-10 20:07:51.054506"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 201 Created in 3ms (Views: 0.6ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+  [1m[35m (0.6ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+------------------------------------------
+PostsControllerTest: test_should_get_index
+------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+----------------------------------------------------------------
+PostsControllerTest: test_should_destroy_post_when_authenticated
+----------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+Processing by PostsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:51.064584') AND "api_keys"."token" = ? LIMIT 1[0m  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "posts" WHERE "posts"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 204 No Content in 2ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------------------
+PostsControllerTest: test_should_not_destroy_post_when_unauth
+-------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36mApiKey Load (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by PostsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mPost Load (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered text template (0.1ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+------------------------------------------------------------
+PostsControllerTest: test_should_not_create_post_when_unauth
+------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#create as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}}
+  Rendered text template (0.0ms)
+Filter chain halted as :restrict_access rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+---------------------------------------------------------------
+PostsControllerTest: test_should_update_post_when_authenticated
+---------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Load (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by PostsController#update as HTML
+  Parameters: {"post"=>{"content"=>"MyText", "user_id"=>"1"}, "id"=>"980190962"}
+  [1m[36mPost Load (0.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35mApiKey Exists (0.2ms)[0m  SELECT  1 AS one FROM "api_keys" WHERE (expires_at > '2015-08-10 20:07:51.076641') AND "api_keys"."token" = ? LIMIT 1  [["token", "alsdkalksdjl1kj2391023la"]]
+  [1m[36mPost Load (0.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 3ms (ActiveRecord: 0.3ms)
+  [1m[35m (0.0ms)[0m  rollback transaction

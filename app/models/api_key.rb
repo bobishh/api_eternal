@@ -11,6 +11,7 @@ class ApiKey < ActiveRecord::Base
   def refresh!
     update_token_expire
     save!
+    self
   end
 
   private

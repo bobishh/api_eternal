@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :users, except: [:new, :edit]
   resources :posts, except: [:new, :edit]
-  resources :sessions, only: [:create, :update]
-  # The priority is based upon order of creation: first created -> highest priority.
+  resources :sessions, only: [:update, :options] do
+    match :create, via: [:post, :options], on: :collection
+  end
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
