@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :users, except: [:new, :edit]
-  resources :posts, except: [:new, :edit]
+  resources :posts, except: [:new, :edit, :create, :show] do
+    match :show, via: [:get, :options], on: :member
+    match :create, via: [:post, :options], on: :collection
+  end
   resources :sessions, only: [:update, :options] do
     match :create, via: [:post, :options], on: :collection
   end

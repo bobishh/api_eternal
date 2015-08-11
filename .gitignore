@@ -1,6 +1,6 @@
 .bundle
 .git
 ./**/*.swp
-/log
-/db/*.sqlite3
-/tmp
+./log/*
+./db/*.sqlite3
+./tmp/*
