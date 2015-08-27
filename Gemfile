@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.3'
 
 gem 'rails-api'
-
 gem 'pry-rails'
 gem 'pry-byebug'
 #storing settings in yaml
@@ -19,9 +18,7 @@ end
 
 gem 'spring', :group => :development
 
-
-gem 'sqlite3'
-
+gem 'pg'
 
 
 # To use ActiveModel has_secure_password
